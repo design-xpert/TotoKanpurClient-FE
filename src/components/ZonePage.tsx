@@ -1,27 +1,16 @@
 import { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router';
-import { Search, MapPin, ChevronDown, Sparkles, ArrowRight, Loader2 } from 'lucide-react';
+import { Search, MapPin, ChevronDown, Sparkles, ArrowRight, Loader2, AlertCircle } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { getThemeColors } from '../utils/theme';
 import { RouteData, SearchResponse } from '../types/api';
-
-const zonesList = [
-  { id: '1', name: 'Red Zone', color: 'red' },
-  { id: '2', name: 'Green Zone', color: 'green' },
-  { id: '3', name: 'Saffron Zone', color: 'saffron' },
-  { id: '4', name: 'Blue Zone', color: 'blue' },
-  { id: '5', name: 'Yellow Zone', color: 'yellow' },
-  { id: '6', name: 'Violet Zone', color: 'violet' },
-  { id: '7', name: 'Pink Zone', color: 'pink' },
-];
-
 import NotFound from './NotFound';
+import Header from './Header';
 
 export default function ZonePage() {
   const { slug } = useParams<{ slug: string }>();
   const navigate = useNavigate();
   const [searchQuery, setSearchQuery] = useState('');
-  const [showZoneDropdown, setShowZoneDropdown] = useState(false);
   const [isSearchFocused, setIsSearchFocused] = useState(false);
   const [showAllThanas, setShowAllThanas] = useState(false);
   
@@ -29,6 +18,7 @@ export default function ZonePage() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [searchLoading, setSearchLoading] = useState(false);
+  const [searchError, setSearchError] = useState<string | null>(null);
 
   // Parse zoneId from slug
   const zoneId = slug ? slug.split('-')[1] : null;
@@ -83,6 +73,7 @@ export default function ZonePage() {
 
   const handleSearch = async (e: React.FormEvent) => {
     e.preventDefault();
+    setSearchError(null);
     if (!searchQuery.trim()) return;
 
     setSearchLoading(true);
@@ -92,13 +83,13 @@ export default function ZonePage() {
       const data: SearchResponse = await response.json();
 
       if (data.error || !data.registration_no) {
-         alert(data.error || 'No record found');
+         setSearchError(data.error || 'No record found');
          return;
       }
 
       // Color Validation
       if (routeData && routeData.color_name.toLowerCase() !== data.route_color.toLowerCase()) {
-        alert('This vehicle does not belong to this route');
+        setSearchError('This vehicle does not belong to this route');
         return;
       }
 
@@ -107,15 +98,10 @@ export default function ZonePage() {
 
     } catch (err) {
       console.error("Search failed", err);
-      alert("An error occurred while searching");
+      setSearchError("An error occurred while searching");
     } finally {
       setSearchLoading(false);
     }
-  };
-
-  const handleZoneChange = (newZoneId: string) => {
-    navigate(`/route-${newZoneId}`);
-    setShowZoneDropdown(false);
   };
 
   const theme = routeData ? getThemeColors(routeData.color_name.toLowerCase() as any) || getThemeColors('blue') : getThemeColors('blue');
@@ -130,10 +116,35 @@ export default function ZonePage() {
 
   if (error || !routeData) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-gray-50">
-        <div className="text-center p-8 bg-white rounded-3xl shadow-xl">
-           <h2 className="text-2xl font-bold text-gray-800 mb-2">Error</h2>
-           <p className="text-gray-600">{error || 'Route not found'}</p>
+      <div className="min-h-screen relative overflow-hidden" style={{ background: theme.primaryLight }}>
+        {/* Animated Background */}
+        <div className="absolute inset-0 overflow-hidden">
+          <div 
+            className="absolute top-0 -left-1/4 w-96 h-96 rounded-full blur-3xl opacity-30 animate-pulse"
+            style={{ background: theme.primary }}
+          />
+          <div 
+            className="absolute bottom-0 -right-1/4 w-96 h-96 rounded-full blur-3xl opacity-20 animate-pulse"
+            style={{ background: theme.secondary, animationDelay: '1s' }}
+          />
+        </div>
+
+        <div className="relative z-10">
+          <Header theme={theme} showZoneSelector={true} currentZoneId={zoneId || undefined} />
+          
+          <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+            <div className="text-center backdrop-blur-xl bg-white/80 rounded-3xl p-12 shadow-2xl max-w-2xl mx-auto mt-6">
+              <div className="text-6xl mb-4">🚫</div>
+              <h2 className="text-3xl font-bold text-gray-800 mb-8">Route Not Matched</h2>
+              {/* <p className="text-gray-600 mb-6">{error || 'The requested route could not be found.'}</p> */}
+              <button
+                onClick={() => navigate('/')}
+                className="px-8 py-3 bg-gradient-to-r from-blue-600 to-blue-700 text-white rounded-2xl hover:scale-105 transition-all shadow-xl"
+              >
+                Return Home
+              </button>
+            </div>
+          </main>
         </div>
       </div>
     );
@@ -157,68 +168,7 @@ export default function ZonePage() {
       </div>
 
       <div className="relative z-10">
-        {/* Fluid Header */}
-        <header className="backdrop-blur-xl bg-white/40 border-b border-white/30 sticky top-0 z-50">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
-            <div className="flex items-center justify-between gap-4">
-              <div className="flex items-center gap-4">
-                <div 
-                  className="h-14 w-14 rounded-2xl p-2 backdrop-blur-xl shadow-lg flex items-center justify-center"
-                  style={{ background: `linear-gradient(135deg, ${theme.primary}, ${theme.secondary})` }}
-                >
-                  <img
-                    src="https://images.unsplash.com/photo-1601958983069-7ba15c2e1c6e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxwb2xpY2UlMjBlbWJsZW0lMjBpbmRpYXxlbnwxfHx8fDE3NzA4ODY1ODl8MA&ixlib=rb-4.1.0&q=80&w=1080"
-                    alt="KPC"
-                    className="h-full w-full object-cover rounded-xl"
-                  />
-                </div>
-                <div>
-                  <h1 className="text-lg sm:text-xl font-bold text-gray-800">Kanpur Police Commission</h1>
-                  <p className="text-xs sm:text-sm text-gray-600">Toto Zone System</p>
-                </div>
-              </div>
-              
-              {/* Floating Zone Selector */}
-              <div className="relative">
-                <button
-                  onClick={() => setShowZoneDropdown(!showZoneDropdown)}
-                  className="px-4 py-2 rounded-2xl text-white font-semibold flex items-center gap-2 transition-all hover:scale-105 shadow-lg"
-                  style={{ background: theme.gradient }}
-                >
-                  <Sparkles className="w-4 h-4" />
-                  <span className="hidden sm:inline">Switch Zone</span>
-                  <ChevronDown className={`w-4 h-4 transition-transform ${showZoneDropdown ? 'rotate-180' : ''}`} />
-                </button>
-                
-                {showZoneDropdown && (
-                  <div className="absolute right-0 mt-3 w-64 backdrop-blur-2xl bg-white/90 rounded-3xl shadow-2xl border border-white/50 overflow-hidden">
-                    <div className="p-2 space-y-1">
-                      {zonesList.map(zone => {
-                        const zoneTheme = getThemeColors(zone.color as any) || getThemeColors('blue');
-                        return (
-                          <button
-                            key={zone.id}
-                            onClick={() => handleZoneChange(zone.id)}
-                            className="w-full px-4 py-3 text-left rounded-2xl transition-all hover:scale-[1.02] flex items-center gap-3 group"
-                            style={{ 
-                              background: zoneId === zone.id ? `${zoneTheme.primary}20` : 'transparent'
-                            }}
-                          >
-                            <div 
-                              className="w-3 h-3 rounded-full shadow-lg group-hover:scale-125 transition-transform"
-                              style={{ background: zoneTheme.gradient }}
-                            />
-                            <span className="font-medium text-gray-800">{zone.name}</span>
-                          </button>
-                        );
-                      })}
-                    </div>
-                  </div>
-                )}
-              </div>
-            </div>
-          </div>
-        </header>
+        <Header theme={theme} showZoneSelector={true} currentZoneId={zoneId || undefined} />
 
         {/* Main Content */}
         <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
@@ -356,6 +306,21 @@ export default function ZonePage() {
                   }}
                 />
               </div>
+
+              {/* Search Error Message */}
+              <AnimatePresence>
+                {searchError && (
+                  <motion.div
+                    initial={{ opacity: 0, y: -10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -10 }}
+                    className="flex items-center gap-2 text-red-600 px-4"
+                  >
+                    <AlertCircle className="w-5 h-5" />
+                    <p className="text-sm font-semibold">{searchError}</p>
+                  </motion.div>
+                )}
+              </AnimatePresence>
               
               <button
                 type="submit"
