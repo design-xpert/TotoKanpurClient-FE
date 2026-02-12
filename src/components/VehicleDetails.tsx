@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router';
-import { ChevronLeft, User, CreditCard, Phone, FileText, MapPin } from 'lucide-react';
+import { ChevronLeft, User, CreditCard, Phone, FileText, MapPin, AlertCircle } from 'lucide-react';
 import { getThemeColors } from '../utils/theme';
 import { Vehicle } from '../types/api';
 import kpcLogo from '../assets/logo/Kanpur-Police-Commission-logo.jpg';
@@ -43,6 +43,14 @@ export default function VehicleDetails() {
       month: 'long',
       year: 'numeric'
     });
+  };
+
+  const isExpired = (dateString: string) => {
+    if (!dateString) return false;
+    const date = new Date(dateString);
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    return date < today;
   };
 
   return (
@@ -243,48 +251,78 @@ export default function VehicleDetails() {
             
              <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-4">
               <div 
-                className="rounded-3xl p-6 backdrop-blur-xl bg-white/70 border border-white/80 shadow-xl hover:scale-[1.02] transition-all"
+                className={`rounded-3xl p-6 backdrop-blur-xl border shadow-xl hover:scale-[1.02] transition-all relative ${
+                  isExpired(vehicle.insurance_upto) ? 'bg-red-50/90 border-red-200' : 'bg-white/70 border-white/80'
+                }`}
               >
-                <div className="flex items-center gap-3 mb-2">
-                  <div 
-                    className="w-10 h-10 rounded-xl flex items-center justify-center"
-                    style={{ backgroundColor: theme.primaryLight }}
-                  >
-                    <CheckCircle className="w-5 h-5" style={{ color: theme.primary }} />
+                <div className="flex items-center justify-between mb-2">
+                  <div className="flex items-center gap-3">
+                    <div 
+                      className="w-10 h-10 rounded-xl flex items-center justify-center"
+                      style={{ backgroundColor: isExpired(vehicle.insurance_upto) ? '#FEE2E2' : theme.primaryLight }}
+                    >
+                      <CheckCircle className={`w-5 h-5 ${isExpired(vehicle.insurance_upto) ? 'text-red-500' : ''}`} style={{ color: isExpired(vehicle.insurance_upto) ? undefined : theme.primary }} />
+                    </div>
+                    <p className={`text-sm font-medium ${isExpired(vehicle.insurance_upto) ? 'text-red-700' : 'text-gray-600'}`}>Insurance Valid Upto</p>
                   </div>
-                  <p className="text-sm text-gray-600 font-medium">Insurance Valid Upto</p>
+                  {isExpired(vehicle.insurance_upto) && (
+                    <div className="bg-gray-200 text-black text-[8px] md:text-[10px] font-bold px-4 py-1 md:px-4 md:py-2 rounded-full shadow-lg flex items-center gap-2">
+                      <AlertCircle className="w-3 h-3 md:w-4 md:h-4" />
+                      Expired
+                    </div>
+                  )}
                 </div>
-                <p className="text-xl font-bold text-gray-800">{formatDate(vehicle.insurance_upto)}</p>
+                <p className={`text-xl font-bold ${isExpired(vehicle.insurance_upto) ? 'text-red-800' : 'text-gray-800'}`}>{formatDate(vehicle.insurance_upto)}</p>
               </div>
 
                <div 
-                className="rounded-3xl p-6 backdrop-blur-xl bg-white/70 border border-white/80 shadow-xl hover:scale-[1.02] transition-all"
+                className={`rounded-3xl p-6 backdrop-blur-xl border shadow-xl hover:scale-[1.02] transition-all relative ${
+                  isExpired(vehicle.fitness_upto) ? 'bg-red-50/90 border-red-200' : 'bg-white/70 border-white/80'
+                }`}
               >
-                <div className="flex items-center gap-3 mb-2">
-                  <div 
-                    className="w-10 h-10 rounded-xl flex items-center justify-center"
-                    style={{ backgroundColor: theme.primaryLight }}
-                  >
-                    <CheckCircle className="w-5 h-5" style={{ color: theme.primary }} />
+                <div className="flex items-center justify-between mb-2">
+                  <div className="flex items-center gap-3">
+                    <div 
+                      className="w-10 h-10 rounded-xl flex items-center justify-center"
+                      style={{ backgroundColor: isExpired(vehicle.fitness_upto) ? '#FEE2E2' : theme.primaryLight }}
+                    >
+                      <CheckCircle className={`w-5 h-5 ${isExpired(vehicle.fitness_upto) ? 'text-red-500' : ''}`} style={{ color: isExpired(vehicle.fitness_upto) ? undefined : theme.primary }} />
+                    </div>
+                    <p className={`text-sm font-medium ${isExpired(vehicle.fitness_upto) ? 'text-red-700' : 'text-gray-600'}`}>Fitness Valid Upto</p>
                   </div>
-                  <p className="text-sm text-gray-600 font-medium">Fitness Valid Upto</p>
+                  {isExpired(vehicle.fitness_upto) && (
+                    <div className="bg-gray-200 text-black text-[8px] md:text-[10px] font-bold px-4 py-1 md:px-4 md:py-2 rounded-full shadow-lg flex items-center gap-2">
+                      <AlertCircle className="w-3 h-3 md:w-4 md:h-4" />
+                      Expired
+                    </div>
+                  )}
                 </div>
-                <p className="text-xl font-bold text-gray-800">{formatDate(vehicle.fitness_upto)}</p>
+                <p className={`text-xl font-bold ${isExpired(vehicle.fitness_upto) ? 'text-red-800' : 'text-gray-800'}`}>{formatDate(vehicle.fitness_upto)}</p>
               </div>
 
                <div 
-                className="rounded-3xl p-6 backdrop-blur-xl bg-white/70 border border-white/80 shadow-xl hover:scale-[1.02] transition-all"
+                className={`rounded-3xl p-6 backdrop-blur-xl border shadow-xl hover:scale-[1.02] transition-all relative ${
+                  isExpired(vehicle.tax_upto) ? 'bg-red-50/90 border-red-200' : 'bg-white/70 border-white/80'
+                }`}
               >
-                <div className="flex items-center gap-3 mb-2">
-                  <div 
-                    className="w-10 h-10 rounded-xl flex items-center justify-center"
-                    style={{ backgroundColor: theme.primaryLight }}
-                  >
-                    <CheckCircle className="w-5 h-5" style={{ color: theme.primary }} />
+                <div className="flex items-center justify-between mb-2">
+                  <div className="flex items-center gap-3">
+                    <div 
+                      className="w-10 h-10 rounded-xl flex items-center justify-center"
+                      style={{ backgroundColor: isExpired(vehicle.tax_upto) ? '#FEE2E2' : theme.primaryLight }}
+                    >
+                      <CheckCircle className={`w-5 h-5 ${isExpired(vehicle.tax_upto) ? 'text-red-500' : ''}`} style={{ color: isExpired(vehicle.tax_upto) ? undefined : theme.primary }} />
+                    </div>
+                    <p className={`text-sm font-medium ${isExpired(vehicle.tax_upto) ? 'text-red-700' : 'text-gray-600'}`}>Tax Valid Upto</p>
                   </div>
-                  <p className="text-sm text-gray-600 font-medium">Tax Valid Upto</p>
+                  {isExpired(vehicle.tax_upto) && (
+                    <div className="bg-gray-200 text-black text-[8px] md:text-[10px] font-bold px-4 py-1 md:px-4 md:py-2 rounded-full shadow-lg flex items-center gap-2">
+                      <AlertCircle className="w-3 h-3 md:w-4 md:h-4" />
+                      Expired
+                    </div>
+                  )}
                 </div>
-                <p className="text-xl font-bold text-gray-800">{formatDate(vehicle.tax_upto)}</p>
+                <p className={`text-xl font-bold ${isExpired(vehicle.tax_upto) ? 'text-red-800' : 'text-gray-800'}`}>{formatDate(vehicle.tax_upto)}</p>
               </div>
             </div>
           </div>
