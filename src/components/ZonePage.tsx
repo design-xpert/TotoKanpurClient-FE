@@ -289,9 +289,12 @@ export default function ZonePage() {
 
             <form onSubmit={handleSearch} className="max-w-3xl mx-auto space-y-4">
               <div 
-                className={`relative rounded-3xl overflow-hidden transition-all ${
+                className={`relative rounded-3xl overflow-hidden transition-all border-2 ${
                   isSearchFocused ? 'scale-[1.02] shadow-2xl' : 'shadow-xl'
                 }`}
+                style={{ 
+                  borderColor: isSearchFocused ? theme.primary : 'transparent'
+                }}
               >
                 <input
                   type="text"
@@ -300,10 +303,7 @@ export default function ZonePage() {
                   onFocus={() => setIsSearchFocused(true)}
                   onBlur={() => setIsSearchFocused(false)}
                   placeholder="UP78AB1234 or SN001234"
-                  className="w-full px-6 py-6 text-lg bg-white/90 backdrop-blur-xl border-2 focus:outline-none transition-all"
-                  style={{ 
-                    borderColor: isSearchFocused ? theme.primary : 'transparent'
-                  }}
+                  className="w-full px-6 py-6 text-lg bg-white/90 backdrop-blur-xl focus:outline-none"
                 />
               </div>
 
@@ -354,18 +354,20 @@ export default function ZonePage() {
                 icon: '⚡'
               },
               {
-                title: 'Stay Compliant',
-                desc: 'Check insurance, fitness & tax validity',
-                icon: '✅'
+                title: 'Security',
+                desc: 'Passengers are requested to click the photo of the QR Sticker bearing Serial Number, before boarding the E-rikshaw/E-Auto for safety reasons',
+                icon: '🛡️'   // icon: '✅'
               }
             ].map((item, index) => (
               <div
                 key={index}
                 className="rounded-3xl p-6 backdrop-blur-xl bg-white/60 border border-white/80 shadow-xl hover:scale-[1.02] transition-all cursor-pointer"
               >
-                <div className="text-4xl mb-3">{item.icon}</div>
-                <h4 className="text-lg font-bold text-gray-800 mb-2">{item.title}</h4>
-                <p className="text-sm text-gray-600">{item.desc}</p>
+                <div className="flex items-center justify-center gap-3 mb-3">
+                  <div className="text-4xl">{item.icon}</div>
+                  <h4 className="text-lg font-bold text-gray-800">{item.title}</h4>
+                </div>
+                <p className="text-sm text-gray-600 text-center">{item.desc}</p>
               </div>
             ))}
           </div>
