@@ -3,6 +3,7 @@ import { useNavigate, useLocation } from 'react-router';
 import { ChevronLeft, User, CreditCard, Phone, FileText, MapPin } from 'lucide-react';
 import { getThemeColors } from '../utils/theme';
 import { Vehicle } from '../types/api';
+import kpcLogo from '../assets/logo/Kanpur-Police-Commission-logo.jpg';
 
 export default function VehicleDetails() {
   const navigate = useNavigate();
@@ -68,7 +69,7 @@ export default function VehicleDetails() {
                 style={{ background: `linear-gradient(135deg, ${theme.primary}, ${theme.secondary})` }}
               >
                 <img
-                  src="https://images.unsplash.com/photo-1601958983069-7ba15c2e1c6e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxwb2xpY2UlMjBlbWJsZW0lMjBpbmRpYXxlbnwxfHx8fDE3NzA4ODY1ODl8MA&ixlib=rb-4.1.0&q=80&w=1080"
+                  src={kpcLogo}
                   alt="KPC"
                   className="h-full w-full object-cover rounded-xl"
                 />

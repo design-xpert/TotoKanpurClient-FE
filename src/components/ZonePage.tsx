@@ -375,7 +375,7 @@ export default function ZonePage() {
         <footer className="mt-16 py-6 backdrop-blur-xl bg-white/40 border-t border-white/30">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <p className="text-center text-gray-600 text-sm">
-              © 2026 Kanpur Police Commission • All Rights Reserved
+              © 2026 Traffic Police Commissionerate Kanpur  • All Rights Reserved
             </p>
           </div>
         </footer>

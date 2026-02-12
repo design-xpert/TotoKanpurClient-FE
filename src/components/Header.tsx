@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Sparkles, ChevronDown } from 'lucide-react';
 import { useNavigate } from 'react-router';
 import { getThemeColors } from '../utils/theme';
+import kpcLogo from '../assets/logo/Kanpur-Police-Commission-logo.jpg';
 
 const zonesList = [
   { id: '1', name: 'Red Zone', color: 'red' },
@@ -38,13 +39,13 @@ export default function Header({ theme, showZoneSelector = true, currentZoneId }
               style={{ background: `linear-gradient(135deg, ${theme.primary}, ${theme.secondary})` }}
             >
               <img
-                src="https://images.unsplash.com/photo-1601958983069-7ba15c2e1c6e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxwb2xpY2UlMjBlbWJsZW0lMjBpbmRpYXxlbnwxfHx8fDE3NzA4ODY1ODl8MA&ixlib=rb-4.1.0&q=80&w=1080"
+                src={kpcLogo}
                 alt="KPC"
                 className="h-full w-full object-cover rounded-xl"
               />
             </div>
             <div>
-              <h1 className="text-lg sm:text-xl font-bold text-gray-800">Kanpur Police Commission</h1>
+              <h1 className="text-lg sm:text-xl font-bold text-gray-800">Traffic Police Commissionerate Kanpur </h1>
               <p className="text-xs sm:text-sm text-gray-600">Toto Zone System</p>
             </div>
           </div>
