@@ -33,7 +33,7 @@ export default function Header({ theme, showZoneSelector = true, currentZoneId }
     <header className="backdrop-blur-xl bg-white/40 border-b border-white/30 sticky top-0 z-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
         <div className="flex items-center justify-between gap-4">
-          <div className="flex items-center gap-4 cursor-pointer" onClick={() => navigate('/')}>
+          <div className="flex items-center gap-4 cursor-pointer" onClick={() => navigate('/route-1')}>
             <div 
               className="h-14 w-14 rounded-2xl p-2 backdrop-blur-xl shadow-lg flex items-center justify-center"
               style={{ background: `linear-gradient(135deg, ${theme.primary}, ${theme.secondary})` }}
