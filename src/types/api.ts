@@ -19,7 +19,7 @@ export interface Vehicle {
   thana_name: string;
   route_color: string;
   registration_no: string;
-  chassis_no: string;
+  chasis_no: string;
   serial_number: string;
   owner_name: string;
   owner_phone: string;
