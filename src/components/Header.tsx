@@ -46,7 +46,7 @@ export default function Header({ theme, showZoneSelector = true, currentZoneId }
             </div>
             <div>
               <h1 className="text-lg sm:text-xl font-bold text-gray-800">Traffic Police Commissionerate Kanpur </h1>
-              <p className="text-xs sm:text-sm text-gray-600">Toto Zone System</p>
+              <p className="text-xs sm:text-sm text-gray-600">E-Rickshaw Zone System</p>
             </div>
           </div>
           

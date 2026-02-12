@@ -280,7 +280,7 @@ export default function ZonePage() {
                 </div>
               </div>
               <h3 className="text-3xl sm:text-4xl font-bold text-gray-800 mb-3">
-                Find Your Toto
+                Find Your E-Rickshaw
               </h3>
               <p className="text-gray-600 text-lg">
                 Search by Registration or Serial Number
