@@ -5,13 +5,13 @@ import { getThemeColors } from '../utils/theme';
 import kpcLogo from '../assets/logo/Kanpur-Police-Commission-logo.jpg';
 
 const zonesList = [
-  { id: '1', name: 'Red Zone', color: 'red' },
-  { id: '2', name: 'Green Zone', color: 'green' },
-  { id: '3', name: 'Dhani Zone', color: 'dhani' },
-  { id: '4', name: 'Blue Zone', color: 'blue' },
-  { id: '5', name: 'Yellow Zone', color: 'yellow' },
-  { id: '6', name: 'Violet Zone', color: 'violet' },
-  { id: '7', name: 'Pink Zone', color: 'pink' },
+  { id: '1', name: 'Route-1 Red Zone', color: 'red' },
+  { id: '2', name: 'Route-2 Green Zone', color: 'green' },
+  { id: '3', name: 'Route-3 Dhani Zone', color: 'dhani' },
+  { id: '4', name: 'Route-4 Blue Zone', color: 'blue' },
+  { id: '5', name: 'Route-5 Yellow Zone', color: 'yellow' },
+  { id: '6', name: 'Route-6 Violet Zone', color: 'violet' },
+  { id: '7', name: 'Route-7 Pink Zone', color: 'pink' },
 ];
 
 interface HeaderProps {
@@ -46,7 +46,7 @@ export default function Header({ theme, showZoneSelector = true, currentZoneId }
             </div>
             <div>
               <h1 className="text-lg sm:text-xl font-bold text-gray-800">Traffic Police Commissionerate Kanpur </h1>
-              <p className="text-xs sm:text-sm text-gray-600">E-Rickshaw Zone System</p>
+              <p className="text-xs sm:text-sm text-gray-600">E-Rickshaw/E-Auto Zone System</p>
             </div>
           </div>
           
@@ -54,7 +54,7 @@ export default function Header({ theme, showZoneSelector = true, currentZoneId }
             <div className="relative">
               <button
                 onClick={() => setShowZoneDropdown(!showZoneDropdown)}
-                className="px-4 py-2 rounded-2xl text-white font-semibold flex items-center gap-2 transition-all hover:scale-105 shadow-lg"
+                className="px-4 py-2 rounded-2xl text-white font-semibold flex items-center gap-2 transition-all hover:scale-105 shadow-lg cursor-pointer"
                 style={{ background: theme.gradient }}
               >
                 <Sparkles className="w-4 h-4" />

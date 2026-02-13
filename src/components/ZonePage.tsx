@@ -193,7 +193,7 @@ export default function ZonePage() {
                   <div>
                     <p className="text-sm text-gray-600 font-medium">Current Zone</p>
                     <h2 className="text-4xl sm:text-5xl font-bold" style={{ color: theme.text }}>
-                      {routeData.color_name} Zone
+                      Route-{zoneId} {routeData.color_name} Zone
                     </h2>
                   </div>
                 </div>
@@ -280,7 +280,7 @@ export default function ZonePage() {
                 </div>
               </div>
               <h3 className="text-3xl sm:text-4xl font-bold text-gray-800 mb-3">
-                Find Your E-Rickshaw
+                Find Your E-Rickshaw/E-Auto
               </h3>
               <p className="text-gray-600 text-lg">
                 Search by Registration or Serial Number
@@ -325,7 +325,7 @@ export default function ZonePage() {
               <button
                 type="submit"
                 disabled={searchLoading}
-                className="w-full py-6 rounded-3xl text-white text-lg font-bold shadow-2xl transition-all hover:scale-[1.02] hover:shadow-3xl flex items-center justify-center gap-3 group"
+                className="w-full py-6 rounded-3xl text-white text-lg font-bold shadow-2xl transition-all hover:scale-[1.02] hover:shadow-3xl flex items-center justify-center gap-3 group cursor-pointer"
                 style={{ background: theme.gradient }}
               >
                 {searchLoading ? 'Searching...' : 'Search Vehicle'}
@@ -375,9 +375,12 @@ export default function ZonePage() {
 
         {/* Footer */}
         <footer className="mt-16 py-6 backdrop-blur-xl bg-white/40 border-t border-white/30">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <p className="text-center text-gray-600 text-sm">
-              © 2026 Traffic Police Commissionerate Kanpur  • All Rights Reserved
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center gap-4">
+            <p className="text-left text-gray-600 text-sm">
+              © 2026 Traffic Police Commissionerate Kanpur • All Rights Reserved
+            </p>
+            <p className="text-right text-gray-500 text-sm">
+              Developed by <a href="https://kvtmedia.com" target="_blank" rel="noopener noreferrer" className="text-indigo-600 hover:text-indigo-800 font-bold cursor-pointer transition-colors decoration-none">KV Tech Media</a>
             </p>
           </div>
         </footer>

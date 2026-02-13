@@ -95,7 +95,7 @@ export default function VehicleDetails() {
           {/* Breadcrumb */}
           <button
             onClick={() => navigate(-1)} // Go back to previous page (likely ZonePage)
-            className="flex items-center gap-2 px-6 py-3 rounded-2xl backdrop-blur-xl bg-white/70 border border-white/80 shadow-lg hover:scale-105 transition-all group"
+            className="flex items-center gap-2 px-6 py-3 rounded-2xl backdrop-blur-xl bg-white/70 border border-white/80 shadow-lg hover:scale-105 transition-all group cursor-pointer"
           >
             <ChevronLeft className="w-5 h-5 text-gray-600 group-hover:-translate-x-1 transition-transform" />
             <span className="font-semibold text-gray-800">Back</span>
@@ -327,6 +327,18 @@ export default function VehicleDetails() {
             </div>
           </div>
         </main>
+
+        {/* Footer */}
+        <footer className="mt-8 py-6 backdrop-blur-xl bg-white/40 border-t border-white/30">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center gap-4">
+            <p className="text-left text-gray-600 text-sm">
+              © 2026 Traffic Police Commissionerate Kanpur • All Rights Reserved
+            </p>
+            <p className="text-right text-gray-500 text-sm">
+              Developed by <a href="https://kvtmedia.com" target="_blank" rel="noopener noreferrer" className="text-indigo-600 hover:text-indigo-800 font-bold cursor-pointer transition-colors decoration-none">KV Tech Media</a>
+            </p>
+          </div>
+        </footer>
       </div>
     </div>
   );
