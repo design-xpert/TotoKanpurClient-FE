@@ -1,4 +1,4 @@
-import { ZoneColor } from '../data/mockData';
+export type ZoneColor = 'red' | 'green' | 'dhani' | 'saffron' | 'blue' | 'yellow' | 'violet' | 'pink';
 
 export interface ThemeColors {
   primary: string;
@@ -33,15 +33,25 @@ export const getThemeColors = (color: ZoneColor): ThemeColors => {
       text: 'rgb(20, 83, 45)',
       badge: 'bg-green-100 text-green-700 border-green-300'
     },
+    dhani: {
+      primary: 'rgb(132, 204, 22)',
+      primaryDark: 'rgb(77, 124, 15)',
+      primaryLight: 'rgb(236, 252, 203)',
+      secondary: 'rgb(190, 242, 100)',
+      accent: 'rgb(101, 163, 13)',
+      gradient: 'linear-gradient(135deg, rgb(132, 204, 22) 0%, rgb(163, 230, 53) 100%)',
+      text: 'rgb(54, 83, 20)',
+      badge: 'bg-lime-100 text-lime-700 border-lime-300'
+    },
     saffron: {
-      primary: 'rgb(234, 88, 12)',
-      primaryDark: 'rgb(194, 65, 12)',
-      primaryLight: 'rgb(255, 237, 213)',
-      secondary: 'rgb(251, 146, 60)',
-      accent: 'rgb(249, 115, 22)',
-      gradient: 'linear-gradient(135deg, rgb(234, 88, 12) 0%, rgb(249, 115, 22) 100%)',
-      text: 'rgb(124, 45, 18)',
-      badge: 'bg-orange-100 text-orange-700 border-orange-300'
+      primary: 'rgb(132, 204, 22)',
+      primaryDark: 'rgb(77, 124, 15)',
+      primaryLight: 'rgb(236, 252, 203)',
+      secondary: 'rgb(190, 242, 100)',
+      accent: 'rgb(101, 163, 13)',
+      gradient: 'linear-gradient(135deg, rgb(132, 204, 22) 0%, rgb(163, 230, 53) 100%)',
+      text: 'rgb(54, 83, 20)',
+      badge: 'bg-lime-100 text-lime-700 border-lime-300'
     },
     blue: {
       primary: 'rgb(37, 99, 235)',

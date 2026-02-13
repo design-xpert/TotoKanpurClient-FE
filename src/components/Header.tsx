@@ -7,7 +7,7 @@ import kpcLogo from '../assets/logo/Kanpur-Police-Commission-logo.jpg';
 const zonesList = [
   { id: '1', name: 'Red Zone', color: 'red' },
   { id: '2', name: 'Green Zone', color: 'green' },
-  { id: '3', name: 'Saffron Zone', color: 'saffron' },
+  { id: '3', name: 'Dhani Zone', color: 'dhani' },
   { id: '4', name: 'Blue Zone', color: 'blue' },
   { id: '5', name: 'Yellow Zone', color: 'yellow' },
   { id: '6', name: 'Violet Zone', color: 'violet' },
