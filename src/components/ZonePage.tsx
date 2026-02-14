@@ -150,8 +150,9 @@ export default function ZonePage() {
     );
   }
 
-  const thanasToShow = showAllThanas ? routeData.thanas : routeData.thanas.slice(0, 8);
-  const hasMoreThanas = routeData.thanas.length > 8;
+  const thanasPrimary = routeData.thanas.slice(0, 8);
+  const thanasExtra = routeData.thanas.slice(8).filter((t: any) => (t?.name || t?.thanaName));
+  const hasMoreThanas = thanasExtra.length > 0;
 
   return (
     <div className="min-h-screen relative overflow-hidden" style={{ background: theme.primaryLight }}>
@@ -201,22 +202,21 @@ export default function ZonePage() {
                 <div className="mt-6">
                   <p className="text-sm font-semibold text-gray-700 mb-3">Covered Thanas</p>
                   <div className="flex flex-wrap gap-2">
-                    {/* Always visible thanas (first 8) */}
-                    {thanasToShow.map((thana) => (
+                    {thanasPrimary.map((thana, idx) => (
                       <span
-                        key={thana.thana_id}
+                        key={String((thana as any).id ?? (thana as any).thana_id ?? `primary-${idx}`)}
                         className="px-4 py-2 rounded-full text-sm font-medium backdrop-blur-xl bg-white/60 border border-white/80 shadow-md hover:scale-105 transition-transform"
                         style={{ color: theme.text }}
                       >
-                        {thana.thanaName}
+                        {(thana as any).name ?? (thana as any).thanaName}
                       </span>
                     ))}
                     
                     {/* Expandable thanas (beyond 8) with smooth animation */}
                     <AnimatePresence>
-                      {showAllThanas && routeData.thanas.slice(8).map((thana, index) => (
+                      {showAllThanas && thanasExtra.map((thana, index) => (
                         <motion.span
-                          key={thana.id}
+                          key={String((thana as any).id ?? (thana as any).thana_id ?? `extra-${index}`)}
                           initial={{ opacity: 0, scale: 0.8, height: 0 }}
                           animate={{ 
                             opacity: 1, 
@@ -239,7 +239,7 @@ export default function ZonePage() {
                           className="px-4 py-2 rounded-full text-sm font-medium backdrop-blur-xl bg-white/60 border border-white/80 shadow-md hover:scale-105 transition-transform"
                           style={{ color: theme.text }}
                         >
-                          {thana.name}
+                          {(thana as any).name ?? (thana as any).thanaName}
                         </motion.span>
                       ))}
                     </AnimatePresence>
@@ -256,7 +256,7 @@ export default function ZonePage() {
                           background: 'rgba(255, 255, 255, 0.9)'
                         }}
                       >
-                        {showAllThanas ? '▲ Show Less' : `▼ Show More (${routeData.thanas.length - 8})`}
+                        {showAllThanas ? '▲ Show Less' : `▼ Show More (${thanasExtra.length})`}
                       </motion.button>
                     )}
                   </div>
@@ -380,7 +380,7 @@ export default function ZonePage() {
               © 2026 Traffic Police Commissionerate Kanpur • All Rights Reserved
             </p>
             <p className="text-right text-gray-500 text-sm">
-              Developed by <a href="https://kvtmedia.com" target="_blank" rel="noopener noreferrer" className="text-indigo-600 hover:text-indigo-800 font-bold cursor-pointer transition-colors decoration-none">KV Tech Media</a>
+              Developed by <a href="https://kvtmedia.com" target="_blank" rel="noopener noreferrer" className="text-indigo-600 hover:text-indigo-800 font-bold cursor-pointer transition-colors decoration-none">KV Tech Media Pvt. Ltd.</a>
             </p>
           </div>
         </footer>

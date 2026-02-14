@@ -335,7 +335,7 @@ export default function VehicleDetails() {
               © 2026 Traffic Police Commissionerate Kanpur • All Rights Reserved
             </p>
             <p className="text-right text-gray-500 text-sm">
-              Developed by <a href="https://kvtmedia.com" target="_blank" rel="noopener noreferrer" className="text-indigo-600 hover:text-indigo-800 font-bold cursor-pointer transition-colors decoration-none">KV Tech Media</a>
+              Developed by <a href="https://kvtmedia.com" target="_blank" rel="noopener noreferrer" className="text-indigo-600 hover:text-indigo-800 font-bold cursor-pointer transition-colors decoration-none">KV Tech Media Pvt. Ltd.</a>
             </p>
           </div>
         </footer>
